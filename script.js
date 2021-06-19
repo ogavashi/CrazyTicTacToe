@@ -7,7 +7,6 @@ const gameBoard = (() => {
     let currentCell = document.querySelector(`[data-value="${index}"]`);
     currentCell.textContent = player.getSign();
     boardArray[index] = player.getSign();
-    console.log(boardArray);
   };
   return {
     getCell,
@@ -27,9 +26,17 @@ const Player = (sign) => {
   };
 };
 
+const Skynet = (() => {
+  const skynetMove = () => Number.parseInt(Math.random() * 9);
+  return {
+    skynetMove,
+  };
+})();
+
 const gameChief = (() => {
   const you = Player("X");
   const notYou = Player("O");
+  const magicSquare = [4, 9, 2, 3, 5, 7, 8, 1, 6];
 
   const getYou = () => you;
   const GetNotYou = () => notYou;
@@ -45,11 +52,54 @@ const gameChief = (() => {
     }
   };
 
+  const endTheGame = (whoWon) => {
+    if (whoWon == "Draw") console.log("It's a draw");
+    else console.log(`The winner is ${whoWon}`);
+  };
+
+  const isItDraw = (board) => {
+    for (let i = 0; i < 9; i++) {
+      console.log(board.getCell(i));
+      if (board.getCell(i) == undefined) {
+        return false;
+      } 
+    }
+    return true;
+  };
+
+  const checkWinner = (board, player) => {
+    for (let i = 0; i < 9; i++)
+      for (let j = 0; j < 9; j++)
+        for (let l = 0; l < 9; l++)
+          if (i != j && i != l && j != l)
+            if (
+              board.getCell(i) === player.getSign() &&
+              board.getCell(j) === player.getSign() &&
+              board.getCell(l) === player.getSign()
+            )
+              if (magicSquare[i] + magicSquare[j] + magicSquare[l] == 15) return true;
+  };
+
   const playerTurn = (index) => {
     const cell = gameBoard.getCell(index);
     if (cell == undefined) {
       gameBoard.setCell(index, you);
+      if (checkWinner(gameBoard, you)) endTheGame(you.getSign());
+      else if (isItDraw(gameBoard)) endTheGame("Draw");
+      else {
+        skynetTurn();
+      }
     }
+  };
+
+  const skynetTurn = () => {
+    const index = Skynet.skynetMove();
+    const cell = gameBoard.getCell(index);
+    if (cell == undefined) {
+      gameBoard.setCell(index, notYou);
+      if (checkWinner(gameBoard, notYou)) endTheGame(notYou.getSign());
+      else if (isItDraw(gameBoard)) endTheGame("Draw");
+    } else skynetTurn();
   };
 
   return {
@@ -57,6 +107,8 @@ const gameChief = (() => {
     GetNotYou,
     changeSign,
     playerTurn,
+    skynetTurn,
+    endTheGame,
   };
 })();
 
@@ -76,6 +128,6 @@ const visualChief = (() => {
     element.addEventListener("click", () => gameChief.playerTurn(index));
   });
   return {
-      changePlayerSign
-  }
+    changePlayerSign,
+  };
 })();
