@@ -133,6 +133,7 @@ const gameChief = (() => {
   };
 
   const resetGame = () => {
+    gameChief.changeIsFinished(false);
     let winText = document.querySelector("#result-game");
     winText.textContent = "";
     visualChief.resetCells();
@@ -172,11 +173,9 @@ const visualChief = (() => {
 
   gameCells.forEach((element, index) => {
     element.addEventListener("click", () => {
-      if (gameChief.getIsFinished() == false)
-      gameChief.playerTurn(index);
+      if (gameChief.getIsFinished() == false) gameChief.playerTurn(index);
       else {
-      gameChief.changeIsFinished(false); 
-      gameChief.resetGame();
+        gameChief.resetGame();
       }
     });
   });

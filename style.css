@@ -39,10 +39,10 @@ footer {
 }
 #gameBoard {
   display: grid;
-  grid-template-columns: 200px 200px 200px;
+  grid-template-columns: 150px 150px 150px;
 }
 .game-cell {
-  height: 200px;
+  height: 150px;
   border: none;
   border-radius: 0px;
   border-bottom: 3px solid #05386b;
