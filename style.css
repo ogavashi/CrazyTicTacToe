@@ -8,7 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Play", sans-serif;
-  color: #05386B;
+  color: #05386b;
   background-color: #5cdb95;
 }
 header {
@@ -30,6 +30,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 footer {
   height: 79px;
@@ -44,15 +45,15 @@ footer {
   height: 200px;
   border: none;
   border-radius: 0px;
-  border-bottom: 3px solid #05386B;
-  border-right: 3px solid #05386B;
+  border-bottom: 3px solid #05386b;
+  border-right: 3px solid #05386b;
   outline: none;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 150px;
-  color: #05386B;
+  color: #05386b;
 }
 .game-cell.no-r {
   border-right: none;
@@ -80,7 +81,7 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #05386B;
+  background-color: #05386b;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -136,4 +137,54 @@ input:checked + .slider .off {
 }
 .slider.round:before {
   border-radius: 50%;
+}
+.win-cell {
+  color: white;
+}
+#result-game {
+  margin-right: 11%;
+  font-size: 40px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.reset-button {
+  position: relative;
+  display: inline-flex;
+  width: 180px;
+  height: 55px;
+  perspective: 1000px;
+  margin-top: 40px;
+}
+.reset-button a {
+  font-size: 19px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform 0.25s;
+  font-family: "Montserrat", sans-serif;
+}
+.reset-button a:before,
+.reset-button a:after {
+  position: absolute;
+  content: "Restart";
+  height: 55px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid #05386b;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.reset-button a:before {
+  color: #5cdb95;
+  background: #05386b;
+  transform: rotateY(0deg) translateZ(25px);
+}
+.reset-button a:after {
+  color: #05386b;
+  transform: rotateX(90deg) translateZ(25px);
+}
+.reset-button a:hover {
+  transform: translateZ(-25px) rotateX(-90deg);
 }
